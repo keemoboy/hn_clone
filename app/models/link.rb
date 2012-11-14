@@ -2,6 +2,7 @@ class Link < ActiveRecord::Base
   attr_accessible :description, :site, :url, :user_id
   
   belongs_to :user
+  has_many :votes
   
   validate :url_uniqueness
 

@@ -1,5 +1,9 @@
 HnClone::Application.routes.draw do
-  resources :links
+
+
+  resources :links do
+    resources :votes
+  end
 
 
   get "log_out" => "sessions#destroy", :as => "log_out"
