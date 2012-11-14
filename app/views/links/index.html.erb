@@ -1,11 +1,32 @@
 <h1>Listing links</h1>
 
+<% if @vote && @vote.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@vote.errors.count, "error") %> prohibited this vote from being cast:</h2>
+
+    <ul>
+    <% @vote.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<table>
+  <tr>
+  <td><%= button_to "by votes", order_by_vote_path, :method => :get %></td>
+  <td><%= button_to "by date", order_by_date_path, :method => :get %></td>
+  </tr>
+</table>
 <table>
   <tr>
     <th>User</th>
+    <th>    </th>
+    <th>    </th>
     <th>Link</th>
-	<th>Votes</th>
-    <th></th>
+    <th>    </th>
+    <th>    </th>
+    <th>    </th>
+  <th>Votes</th>
     <th></th>
     <th></th>
   </tr>
@@ -13,11 +34,17 @@
 <% @links.each do |link| %>
   <tr>
     <td><%= link.user.email %></td>
+    <td>  <td>
     <td><%= link_to link.description, link.url %></td>
-    <td><%= link.votes.count %></td>    
-	<td><%= link_to 'Upvote', link_votes_path(link), :method => :post %></td>
     <td><%= link.site %></td>
+    <td>  <td>
+    <td><%= link.votes.count %></td>
+    <td><%= link_to 'Upvote', link_votes_path(link), :method => :post %></td>
+    <td>  <td>
+    <td>  <td>
     <td><%= link.created_at %></td>
+    <td>  <td>
+      <td>  <td>
     <td><%= link_to 'Show', link %></td>
     <td><%= link_to 'Edit', edit_link_path(link) %></td>
     <td><%= link_to 'Destroy', link, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>

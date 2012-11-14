@@ -1,14 +1,18 @@
 HnClone::Application.routes.draw do
 
+  root :to => "sessions#new"
 
   resources :links do
     resources :votes
   end
 
+  get "order_by_date" => "sessions#date_view"
+  get "order_by_vote" => "sessions#vote_view"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
+
   resources :users
   resources :sessions
 
