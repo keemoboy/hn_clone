@@ -26,6 +26,9 @@ class LinksController < ApplicationController
 
   def edit
     @link = Link.find(params[:id])
+    redirect_to links_path, :notice => 'Only the creator of this link can edit it' if @link.user_id != current_user.id
+    redirect_to links_path, :notice => 'You can only edit your link within 15 minutes of posting it' if Time.now - @link.created_at > 900
+  
   end
 
   def create
@@ -33,7 +36,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
-        format.html { redirect_to @link, :notice => 'Link was successfully created.' }
+        format.html { redirect_to links_path, :notice => 'Link was successfully created.' }
       else
         format.html { render :action => "new" }
       end
@@ -45,7 +48,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.update_attributes(params[:link])
-        format.html { redirect_to @link, :notice => 'Link was successfully updated.' }
+        format.html { redirect_to links_path, :notice => 'Link was successfully updated.' }
       else
         format.html { render :action => "edit" }
       end
@@ -54,11 +57,12 @@ class LinksController < ApplicationController
 
   def destroy
     @link = Link.find(params[:id])
+    
+    redirect_to links_path, :notice => 'Only the creator of this link can edit it' if @link.user_id != current_user.id
+    redirect_to links_path, :notice => 'You can only edit your link within 15 minutes of posting it' if Time.now - @link.created_at > 900
+    
     @link.destroy
 
-    respond_to do |format|
-      format.html { redirect_to links_url }
-    end
   end
   
 end

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to links_path, :notice => "Signed up!"
+      redirect_to log_in_path, :notice => "Congratulation, you are signed up! Please log in to view articles"
     else
       render "new"
     end

@@ -5,7 +5,7 @@ class Link < ActiveRecord::Base
   
   validate :url_uniqueness
 
-  before_create :add_http, :assign_site
+  before_save :add_http, :assign_site
 
 
   private
@@ -26,7 +26,7 @@ class Link < ActiveRecord::Base
 
     @link = Link.find_by_url(self.url)
 
-    errors.add(:base, "This link has already been posted") if @link != nil
+    errors.add(:base, "This link has already been posted") if @link != nil && @link.id != self.id
 
   end
   
