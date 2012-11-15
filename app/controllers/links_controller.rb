@@ -18,6 +18,9 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.find(params[:id])
+    @comment = Comment.new
+
+    @comments = Comment.where(:subject_id => params[:id]).all
 
     respond_to do |format|
       format.html

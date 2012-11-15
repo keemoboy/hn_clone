@@ -1,9 +1,16 @@
 HnClone::Application.routes.draw do
 
+
+
   root :to => "sessions#new"
 
   resources :links do
     resources :votes
+    resources :comments
+  end
+
+  resources :comments do
+    resources :comments
   end
 
   get "order_by_date" => "sessions#date_view"
@@ -15,6 +22,7 @@ HnClone::Application.routes.draw do
 
   resources :users
   resources :sessions
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

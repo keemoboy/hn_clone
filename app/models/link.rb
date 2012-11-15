@@ -1,13 +1,17 @@
 class Link < ActiveRecord::Base
   attr_accessible :description, :site, :url, :user_id
-  
+
   belongs_to :user
   has_many :votes
-  
+  has_many :comments, :as => :subject
+
   validate :url_uniqueness
 
   before_save :add_http, :assign_site
 
+  def link
+    self
+  end
 
   private
 
@@ -30,5 +34,5 @@ class Link < ActiveRecord::Base
     errors.add(:base, "This link has already been posted") if @link != nil && @link.id != self.id
 
   end
-  
+
 end

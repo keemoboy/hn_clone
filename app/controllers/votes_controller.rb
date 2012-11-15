@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :assign_link
+  before_filter :assign_link, :set_user
 
   def new
   end
