@@ -5,6 +5,7 @@ class CreateLinks < ActiveRecord::Migration
       t.string :description
       t.string :url
       t.string :site
+      t.integer :comment_count
 
       t.timestamps
     end
