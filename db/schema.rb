@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(:version => 20121114235527) do
     t.integer  "user_id"
     t.integer  "subject_id"
     t.string   "subject_type"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "comment_count"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "links", :force => true do |t|

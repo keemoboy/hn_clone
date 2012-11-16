@@ -45,10 +45,11 @@
     <td><%= link.created_at %></td>
     <td>  <td>
       <td>  <td>
-    <td><%= link_to 'Show', link %></td>
+    <!-- <td><%= link_to 'Show', link %></td> -->
     <td><%= link_to 'Edit', edit_link_path(link) %></td>
     <td><%= link_to 'Destroy', link, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
   </tr>
+  <tr><td><%= link.comments.count %><%= link_to " Comments", link%></td>
 <% end %>
 </table>
 

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :set_user, :assign_link
+  before_filter :assign_link
   before_filter :assign_subject
 
   def new
@@ -7,15 +7,15 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @current_user.comments.build(params[:comment])
-    puts "*" * 100
-    puts @subject
+    @comment = current_user.comments.build(params[:comment])
     @comment.subject = @subject
     @link = @comment.link
 
     respond_to do |format|
-      if @comment.save
+      if @comment.save && @subject.class == Link
         format.html { redirect_to @link, :notice => 'Thanks for your comment' }
+      elsif @comment.save && @subject.class == Comment
+        format.html { redirect_to @subject, :notice => 'Thanks for your comment' }
       else
         format.html { render :action => "new" }
       end
@@ -26,14 +26,15 @@ class CommentsController < ApplicationController
     @head_comment = Comment.find(params[:id])
     @comment = Comment.new
     @comments = Comment.where(:subject_id => params[:id]).all
+    @comments.delete_if {|comment| comment.subject_type != "Comment"}
     @link = @head_comment.link
   end
 
   private
 
-  def set_user
-    @current_user = User.find(session[:user_id])
-  end
+  # def set_user
+  #   @current_user = User.find(session[:user_id])
+  # end
 
   def assign_link
     @link = Link.find(params[:link_id]) if params[:link_id]

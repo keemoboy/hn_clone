@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  attr_accessible :description, :site, :url, :user_id
+  attr_accessible :description, :site, :url, :user_id, :comment_count
 
   belongs_to :user
   has_many :votes
@@ -8,6 +8,9 @@ class Link < ActiveRecord::Base
   validate :url_uniqueness
 
   before_save :add_http, :assign_site
+
+  before_create :set_comment_count
+
 
   def link
     self
@@ -33,6 +36,10 @@ class Link < ActiveRecord::Base
 
     errors.add(:base, "This link has already been posted") if @link != nil && @link.id != self.id
 
+  end
+
+  def set_comment_count
+    self.comment_count = 0
   end
 
 end

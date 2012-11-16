@@ -1,12 +1,12 @@
 class VotesController < ApplicationController
-  before_filter :assign_link, :set_user
+  before_filter :assign_link
 
   def new
   end
 
   def create
     @vote = Vote.new
-    @vote.user = @current_user
+    @vote.user = current_user
     @vote.link = @link
     @vote.save
     @links = Link.all
@@ -23,7 +23,7 @@ class VotesController < ApplicationController
     @link = Link.find(params[:link_id])
   end
 
-  def set_user
-    @current_user = User.find(session[:user_id])
-  end
+  # def set_user
+  #   @current_user = User.find(session[:user_id])
+  # end
 end

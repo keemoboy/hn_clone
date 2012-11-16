@@ -45,10 +45,12 @@
 <% end %>
 
 <br />
-Comments:
+Replies:
 <% @comments.each do |comment| %>
-<br /><%= comment.body %><%= button_to "reply", new_comment_comment_path(@subject), :method => :get %>
+<br /><%= link_to comment.body, link_comment_path(@head_comment, comment) %><%= "  by (#{comment.user.email})" %><br /><%=" #{comment.comment_count} replies"%><%= button_to "reply", comment_path(comment), :method => :get %>
+
 <% end %>
+
 
 
 <%= link_to 'Back', links_path %>

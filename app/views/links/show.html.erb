@@ -48,5 +48,5 @@
 <br />
 Comments:
 <% @comments.each do |comment| %>
-<br /><%= comment.body %><%= button_to "reply", comment_path(comment), :method => :get %>
+<br /><%= link_to comment.body, link_comment_path(@link, comment) %><%= "  by (#{comment.user.email})" %><br /><%=" #{comment.comment_count} replies"%><%= button_to "reply", comment_path(comment), :method => :get %>
 <% end %>
